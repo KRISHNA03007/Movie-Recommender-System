@@ -1,5 +1,9 @@
 # Movie Recommendation System 🎬🍿
 
+
+## App Link
+https://movie-recommender-system-g63bvchvtabgmr47szzsaa.streamlit.app/
+
 ## Project Overview
 
 Welcome to the **Movie Recommendation System**, a smart and interactive platform designed to help you discover your next favorite movie! This system uses advanced machine learning techniques and a user-friendly web interface to provide personalized movie suggestions based on your preferences.
