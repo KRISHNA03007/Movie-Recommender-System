@@ -68,7 +68,6 @@ def recommend(movie, num_recommendations):
 def fetch_from_drive(file_id, save_path):
     if not os.path.exists(save_path):
         url = f"https://drive.google.com/uc?id={file_id}"
-        st.info(f"Downloading {save_path} from Google Drive...")
         gdown.download(url, save_path, quiet=False)
 
 os.makedirs("model", exist_ok=True)
