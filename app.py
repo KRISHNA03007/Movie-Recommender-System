@@ -5,6 +5,9 @@ import pandas as pd
 import plotly.express as px
 import mysql.connector
 import plotly.graph_objects as go
+import gdown
+from src.config import FILE_IDS
+import os 
 
 st.set_page_config(layout="wide")
 
@@ -61,11 +64,28 @@ def recommend(movie, num_recommendations):
         st.error(f"Error generating recommendations: {str(e)}")
         return [], []
 
+# fetch and dowmload pkl files from drive
+def fetch_from_drive(file_id, save_path):
+    if not os.path.exists(save_path):
+        url = f"https://drive.google.com/uc?id={file_id}"
+        st.info(f"Downloading {save_path} from Google Drive...")
+        gdown.download(url, save_path, quiet=False)
 
-# Load data
-movies = pickle.load(open('model/movie_list.pkl', 'rb'))
-similarity = pickle.load(open('model/similarity.pkl', 'rb'))
-info1 = pickle.load(open('model/info1.pkl', 'rb'))  # Use info1.pkl
+os.makedirs("model", exist_ok=True)
+
+fetch_from_drive(FILE_IDS["movie_list"], "model/movie_list.pkl")
+fetch_from_drive(FILE_IDS["similarity"], "model/similarity.pkl")
+fetch_from_drive(FILE_IDS["info1"], "model/info1.pkl")
+
+with open("model/movie_list.pkl", "rb") as f:
+    movies = pickle.load(f)
+
+with open("model/similarity.pkl", "rb") as f:
+    similarity = pickle.load(f)
+
+with open("model/info1.pkl", "rb") as f:
+    info1 = pickle.load(f)
+
 info1.columns = info1.columns.str.strip().str.lower()
 
 # Movie list for dropdown
